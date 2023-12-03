@@ -6,6 +6,7 @@ int	count_round(const int *next, int num)
 	int	check[num];
 	int	max, round, i, n;
 
+	memset(check, 0, sizeof(check));
 	for (int i = 1; i <= num; i++)
 	{
 		n = i;

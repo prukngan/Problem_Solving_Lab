@@ -3,34 +3,25 @@ using namespace std;
 
 int	main()
 {
-	int	n, x, y, sum = 0;
-	cin >> n;
+	int			n, x, y, first_pos = 0;
 
-	vector<list<int>>	necklace[n + 1];
-	// vector<list<int>>	pearl[n + 1];
+	cin >> n;
+	vector<list<int>::iterator>	pt(n + 1);
+	list<int>	necklace[n + 1];
 	for (int i = 1; i <= n; i++)
 	{
-		necklace[i][0].push_back(i);
-		sum += i;
+		necklace[i].push_back(i);
+		pt[i] = necklace[i].begin();
+		first_pos += i; 
 	}
-	for (int i = 1; i < n; i++)
+	for (int i = 0; i < n - 1; i++)
 	{
 		cin >> x >> y;
-		list<int>	pearl = necklace[y];
-		pearl.splice(++(necklace[y].begin()), necklace[x]);
-		// necklace[y][0].insert(++(necklace[y][0].begin()), necklace[x][0].begin(), necklace[x][0].end());
-		// necklace[x] = necklace[x];
-		sum -= x;
-		cout << "----------------------------------" << '\n';
-		for (int j = 1; j <= n; j++)
-		{
-			for (auto &val : necklace[j][0])
-				cout << val << ' ';
-			cout << '\n';
-		}
+		auto	itr = pt[y];
+		necklace[y].splice(++itr, necklace[x]);
+		first_pos -= x;
 	}
-	cout << "----------------------------------" << '\n';
-	for (auto val : necklace[sum][0])
+	for (auto &val : necklace[first_pos])
 		cout << val << ' ';
 	return (0);
 }
